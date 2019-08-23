@@ -41,7 +41,7 @@
             <div class="row">
                 <div class="col-sm-8 col-md-7 py-4">
                     <h4 class="text-white">About</h4>
-                    <p class="text-muted">this is a website about love</p>
+                    <p class="text-muted">相册</p>
                     <form action="{{ url_for('upload_row') }}" method="post" enctype="multipart/form-data">
                         <label for="fid"><input type="file" id="fid" name="f1"></label>
                         <input type="submit" value="上传">
@@ -49,8 +49,8 @@
                 </div>
                 <div class="col-sm-4 offset-md-1 py-4">
                     <ul class="list-unstyled">
-                        <li><a href="#" class="text-white">It's a present for my baby</a></li>
-                        <li><a href="#" class="text-white">红芒果&加菲猫</a></li>
+                        <li><a href="#" class="text-white">共享相册</a></li>
+                        <li><a href="#" class="text-white">可自行上传图片</a></li>
                         <li><a href="#" class="text-white">{{context.time}}</a></li>
                         <li><a href="/miss" class="text-white">回收站</a></li>
 
@@ -68,7 +68,7 @@
                     <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
                     <circle cx="12" cy="13" r="4"/>
                 </svg>
-                <strong>tell me you love me</strong>
+                <strong>共享相册</strong>
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader"
                     aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
