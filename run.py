@@ -127,8 +127,8 @@ def miss():
 @app.route("/keep", methods=["GET", "POST"])
 def keep():
     """
-    回收站主页，获取回收站里的图片所有信息
-    :return: 返回回收站主页html
+    所有上传的主页，获取所以上传的图片所有信息
+    :return: 返回所有上传的html
     """
     pic_li = os.listdir('./static/images_keep/')
     print(pic_li)
@@ -143,8 +143,8 @@ def keep():
 @app.route("/clear", methods=["GET", "POST"])
 def clear():
     """
-    回收站主页，获取回收站里的图片所有信息
-    :return: 返回回收站主页html
+    清空站主页，获取清空的图片所有信息
+    :return: 返回一键清空主页html
     """
     pic_li = os.listdir('./static/images_clear/')
     print(pic_li)
@@ -160,7 +160,7 @@ def clear():
 def clear_all():
     """
     清空回收站
-    :return: 返回回收站主页html
+    :return: 返回回收站主页
     """
     pic_li = os.listdir('./static/images_delete/')
     for name in pic_li:
