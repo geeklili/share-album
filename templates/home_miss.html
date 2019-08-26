@@ -33,6 +33,83 @@
 
         }
     </style>
+    <script type="text/javascript" src="static/js/jquery.min.js"></script>
+    <script language="javascript">
+        //删除指定元素
+        function del_picture(diva) {
+            //创建异步对象
+            var xhr = new XMLHttpRequest();
+            //设置请求的类型及url
+            //post请求一定要添加请求头才行不然会报错
+            // xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+            var resp = "/delete_recycle?name=" + diva;
+            console.log(resp);
+            xhr.open('post', resp);
+            //发送请求
+            xhr.send();
+            xhr.onreadystatechange = function () {
+                // 这步为判断服务器是否正确响应
+                console.log("llllll");
+
+            };
+        }
+
+        function add_picture(diva) {
+            //创建异步对象
+            var xhr = new XMLHttpRequest();
+            //设置请求的类型及url
+            //post请求一定要添加请求头才行不然会报错
+            // xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+            var resp = "/add?name=" + diva;
+            console.log(resp);
+            xhr.open('post', resp);
+            //发送请求
+            xhr.send();
+            xhr.onreadystatechange = function () {
+                // 这步为判断服务器是否正确响应
+                console.log("llllll");
+
+            };
+        }
+
+        function or_not() {
+            if (confirm("确定恢复？")) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        function or_not_delete() {
+            if (confirm("确定彻底删除？")) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        function delUpload(diva) {
+            var or_not_delet = or_not_delete();
+            if (or_not_delet) {
+                console.log(diva);
+                document.getElementById(diva).parentNode.removeChild(document.getElementById(diva));
+
+                del_picture(diva);
+            }
+        }
+
+        function delUpload2(diva) {
+            var ornot = or_not();
+            if (ornot) {
+                console.log(diva);
+                document.getElementById(diva).parentNode.removeChild(document.getElementById(diva));
+
+                add_picture(diva);
+
+            }
+        }
+    </script>
+
 </head>
 <body>
 <header>
@@ -41,7 +118,8 @@
             <div class="row">
                 <div class="col-sm-8 col-md-7 py-4">
                     <h5 class="text-white">似水流年</h5>
-                    <p class="text-muted3"><a href="/clear" class="text-white">莫</a><a href="#" class="text-white">失莫忘</a></p>
+                    <p class="text-muted3"><a href="/clear" class="text-white">莫</a><a href="#"
+                                                                                       class="text-white">失莫忘</a></p>
                     <p class="text-muted2"><a href="/clear_all" class="text-white">清空回收站</a></p>
 
                 </div>
@@ -67,7 +145,7 @@
                     <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
                     <circle cx="12" cy="13" r="4"/>
                 </svg>
-                <strong>album</strong>
+                <strong>recycle bin</strong>
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader"
                     aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
@@ -83,15 +161,13 @@
 
             <div class="row">
                 {% for i in context.li %}
-                <div class="col-md-4">
+                <div class="col-md-4" id="{{i}}">
                     <div class="card mb-4 shadow-sm">
                         <img class="card-img-top" src="/pic?name={{ i }}&file=images_delete">
-                        <div class="card-body">
-                            <a href="/add?name={{ i }}" class="addlink"><p class="card-text">recover</p></a>
-                            <!--                            <form action="form_action.asp" method="get">-->
-                            <!--                              <input class="cardtext" type="text" name="fname" />-->
-                            <!--                              <input type="submit" value="submit" />-->
-                            <!--                            </form>-->
+                        <div class="card-body" style="height:30px;padding-top: 2px;">
+                            <a href="javascript:delUpload2('{{i}}')" style="float: left;color:#FFDAB9;" class="addlink">↞</a>
+                            <a href="javascript:delUpload('{{i}}')" style="float: right;color:#FFDAB9;"
+                               class="delete_recycle_link">✁</a>
                         </div>
                     </div>
                 </div>
