@@ -251,5 +251,10 @@ def clear_all():
     return redirect(url_for("miss"))
 
 
+@app.route('/', methods=["GET", "POST"])
+def index():
+    return redirect(url_for("love"))
+
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=520, debug=True)
