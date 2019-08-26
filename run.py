@@ -16,7 +16,9 @@ def upload_row():
     :return: 重定向到主页
     """
     fp = request.files.get("f1")
+    print("1111111111111111111111111111")
     if fp is not None:
+        print("22222222222222222")
         now_date = datetime.datetime.now()
         uid = now_date.strftime('%Y-%m-%d-%H-%M-%S')
 
@@ -33,9 +35,9 @@ def upload_row():
             else:
                 im = Image.open(file)
                 x, y = im.size
-                y_s = int(y * 1000 / x)
+                y_s = int(y * 1200 / x)
 
-                out = im.resize((1000, y_s), Image.ANTIALIAS)
+                out = im.resize((1200, y_s), Image.ANTIALIAS)
 
                 uid2 = now_date.strftime('%Y-%m-%d-%H-%M-%S')
                 # 保存文件到服务器本地
@@ -46,7 +48,8 @@ def upload_row():
                     img.convert('RGB').save(file2, quality=10)
                 else:
                     out.save(file2)
-
+    else:
+        print("23333")
     return redirect(url_for("love"))
 
 
@@ -69,20 +72,98 @@ def static_picture():
 @app.route("/delete", methods=["GET", "POST"])
 def delete():
     """
-    删除图片的接口，将图片存到images_delete文件夹里
+    删除图片的接口，将图片存到回收站的文件夹里
     :return: 重定向到主页
     """
     pic_name = request.args.get('name')
     file_name = './static/images/%s' % pic_name
     file_name2 = './static/images_delete/%s' % pic_name
     shutil.move(file_name, file_name2)
-    return redirect(url_for("love"))
+    # return redirect(url_for("love"))
+    return "200"
+
+
+@app.route("/delete_recycle", methods=["GET", "POST"])
+def delete_recycle():
+    """
+    删除图片的接口，将图片存到清空站
+    :return: 200
+    """
+    pic_name = request.args.get('name')
+    file_name = './static/images_delete/%s' % pic_name
+    file_name2 = './static/images_clear/%s' % pic_name
+    shutil.move(file_name, file_name2)
+    # return redirect(url_for("miss"))
+    return "200"
+
+
+@app.route("/delete_clear", methods=["GET", "POST"])
+def delete_clear():
+    """
+    删除清空站里的图片
+    :return: 200
+    """
+    pic_name = request.args.get('name')
+    # file_name = './static/images_delete/%s' % pic_name
+    file_name2 = './static/images_clear/%s' % pic_name
+    os.remove(file_name2)
+    # shutil.move(file_name, file_name2)
+    # return redirect(url_for("miss"))
+    return "200"
+
+
+@app.route("/delete_keep", methods=["GET", "POST"])
+def delete_keep():
+    """
+    删除图片的接口，删除保有的图片
+    :return: 200
+    """
+    pic_name = request.args.get('name')
+    # file_name = './static/images_delete/%s' % pic_name
+    file_name2 = './static/images_keep/%s' % pic_name
+    os.remove(file_name2)
+    # shutil.move(file_name, file_name2)
+    # return redirect(url_for("miss"))
+    return "200"
+
+
+@app.route("/add_clear", methods=["GET", "POST"])
+def add_clear():
+    """
+    将清空站的照片恢复到回收站
+    :return: 200
+    """
+    pic_name = request.args.get('name')
+    file_name = './static/images_delete/%s' % pic_name
+    file_name2 = './static/images_clear/%s' % pic_name
+    # os.remove(file_name2)
+    shutil.move(file_name2, file_name)
+    # return redirect(url_for("miss"))
+    return "200"
+
+
+@app.route("/revolve", methods=["GET", "POST"])
+def revolve():
+    """
+    旋转图片的接口，将图片存到images文件夹里
+    :return: 200
+    """
+    pic_name = request.args.get('name')
+    file_name = './static/images/%s' % pic_name
+    # file_name2 = './static/images/%s' % pic_name
+    img = Image.open(file_name)  # 打开图片
+
+    img3 = img.transpose(Image.ROTATE_90)  # 旋转 90 度角。
+    img3.save(file_name)
+    # shutil.move(file_name, file_name2)
+    # return redirect(url_for("love"))
+    return "200"
 
 
 @app.route("/add", methods=["GET", "POST"])
 def add():
     """
-    添加图片的接口，将图片存到images文件夹里
+    添加图片的接口，将图片恢复到images文件夹里
     :return: 重定向到主页
     """
     pic_name = request.args.get('name')
@@ -127,8 +208,8 @@ def miss():
 @app.route("/keep", methods=["GET", "POST"])
 def keep():
     """
-    所有上传的主页，获取所以上传的图片所有信息
-    :return: 返回所有上传的html
+    所有照片主页，获取所有照片的图片所有信息
+    :return: 返回所有照片主页html
     """
     pic_li = os.listdir('./static/images_keep/')
     print(pic_li)
@@ -143,8 +224,8 @@ def keep():
 @app.route("/clear", methods=["GET", "POST"])
 def clear():
     """
-    清空站主页，获取清空的图片所有信息
-    :return: 返回一键清空主页html
+    清空站主页，获取清空站里的图片所有信息
+    :return: 返回清空站主页html
     """
     pic_li = os.listdir('./static/images_clear/')
     print(pic_li)
@@ -160,7 +241,7 @@ def clear():
 def clear_all():
     """
     清空回收站
-    :return: 返回回收站主页
+    :return: 返回回收站主页html
     """
     pic_li = os.listdir('./static/images_delete/')
     for name in pic_li:
