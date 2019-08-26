@@ -50,7 +50,7 @@ def upload_row():
                     out.save(file2)
     else:
         print("23333")
-    return redirect(url_for("love"))
+    return redirect(url_for("index"))
 
 
 @app.route("/pic", methods=["GET", "POST"])
@@ -79,7 +79,7 @@ def delete():
     file_name = './static/images/%s' % pic_name
     file_name2 = './static/images_delete/%s' % pic_name
     shutil.move(file_name, file_name2)
-    # return redirect(url_for("love"))
+    # return redirect(url_for("index"))
     return "200"
 
 
@@ -156,7 +156,7 @@ def revolve():
     img3 = img.transpose(Image.ROTATE_90)  # 旋转 90 度角。
     img3.save(file_name)
     # shutil.move(file_name, file_name2)
-    # return redirect(url_for("love"))
+    # return redirect(url_for("index"))
     return "200"
 
 
@@ -173,8 +173,8 @@ def add():
     return redirect(url_for("miss"))
 
 
-@app.route("/love", methods=["GET", "POST"])
-def love():
+@app.route("/index", methods=["GET", "POST"])
+def index():
     """
     主页，获取传递过去的图片所有信息
     :return: 返回主页html
@@ -252,8 +252,8 @@ def clear_all():
 
 
 @app.route('/', methods=["GET", "POST"])
-def index():
-    return redirect(url_for("love"))
+def index2():
+    return redirect(url_for("index"))
 
 
 if __name__ == '__main__':
