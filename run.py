@@ -2,8 +2,11 @@
 import datetime
 import os
 import shutil
+
+import requests
 from PIL import Image
 from flask import Flask, render_template, Response, request, redirect, url_for
+from lxml import etree
 
 app = Flask(__name__)
 
@@ -173,6 +176,8 @@ def add():
     return redirect(url_for("miss"))
 
 
+@app.route('/', methods=["GET", "POST"])
+@app.route('/love', methods=["GET", "POST"])
 @app.route("/index", methods=["GET", "POST"])
 def index():
     """
@@ -251,9 +256,28 @@ def clear_all():
     return redirect(url_for("miss"))
 
 
-@app.route('/', methods=["GET", "POST"])
-def index2():
-    return redirect(url_for("index"))
+@app.route('/page', methods=["GET", "POST"])
+def page():
+    title, author, content_li = get_one_page()
+    context = dict()
+    context['title'] = title
+    context['author'] = author
+    context['content_li'] = content_li
+    a = datetime.datetime.now()
+    a = a + datetime.timedelta(0.5)
+    time_now = datetime.datetime.strftime(a, "%Y-%m-%d")
+    context['time'] = time_now
+    # print(context)
+    return render_template('home_page.html', context=context)
+
+
+def get_one_page():
+    ret = requests.get('https://meiriyiwen.com/random')
+    selector = etree.HTML(ret.text)
+    title = selector.xpath('//*[@id="article_show"]/h1/text()')[0]
+    author = selector.xpath('//*[@id="article_show"]/p/span/text()')[0]
+    content_li = selector.xpath('//*[@id="article_show"]/div[1]/p/text()')
+    return title, author, content_li
 
 
 if __name__ == '__main__':

@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.5">
+    <title>nice try</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/album/">
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        .page_show {
+            padding-left: 15px;
+            padding-right: 15px;
+            margin-bottom: 20px;
+        }
+
+        .title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .author {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+
+        .cardtext {
+
+        }
+
+    </style>
+
+    <script type="text/javascript" src="static/js/jquery.min.js"></script>
+    <script language="javascript">
+
+        //删除指定元素
+        function del_picture(diva) {
+            //创建异步对象
+            var xhr = new XMLHttpRequest();
+            //设置请求的类型及url
+            //post请求一定要添加请求头才行不然会报错
+            // xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+            var resp = "/delete?name=" + diva;
+            console.log(resp);
+            xhr.open('post', resp);
+            //发送请求
+            xhr.send();
+            xhr.onreadystatechange = function () {
+                // 这步为判断服务器是否正确响应
+                console.log("llllll");
+
+            };
+        }
+
+        function revolve_picture(diva) {
+            //创建异步对象
+            var xhr = new XMLHttpRequest();
+            //设置请求的类型及url
+            //post请求一定要添加请求头才行不然会报错
+            // xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+            var resp = "/revolve?name=" + diva;
+            console.log(resp);
+            xhr.open('post', resp);
+            //发送请求
+            xhr.send();
+            xhr.onreadystatechange = function () {
+                // 这步为判断服务器是否正确响应
+                console.log("llllll");
+
+                window.location.reload();
+            };
+        }
+
+        function or_not_delete() {
+            if (confirm("确定删除？")) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        function or_not_revolve() {
+            if (confirm("确定旋转？")) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+
+        function delUpload(diva) {
+            var or_not_delet = or_not_delete();
+            if (or_not_delet) {
+                console.log(diva);
+                document.getElementById(diva).parentNode.removeChild(document.getElementById(diva));
+
+                del_picture(diva);
+            }
+        }
+
+        function delUpload2(diva) {
+            var revolve_pic = or_not_revolve();
+            if (revolve_pic) {
+                console.log(diva);
+                revolve_picture(diva);
+            }
+        }
+
+    </script>
+</head>
+<body>
+<header>
+    <div class="collapse bg-dark" id="navbarHeader">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 col-md-7 py-4">
+                    <h4 class="text-white">About</h4>
+                    <p class="text-muted">每天一篇好文章</p>
+                </div>
+                <div class="col-sm-4 offset-md-1 py-4">
+                    <ul class="list-unstyled">
+                        <li><a href="/" class="text-white">返回主页</a></li>
+                        <li><a href="#" class="text-white" style="margin-bottom: 10px">{{context.time}}</a></li>
+                        <li><a href="/miss" class="text-white">回收站</a></li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="navbar navbar-dark bg-dark shadow-sm">
+        <div class="container d-flex justify-content-between">
+            <a href="/page" class="navbar-brand d-flex align-items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor"
+                     stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="mr-2"
+                     viewBox="0 0 24 24" focusable="false">
+                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                    <circle cx="12" cy="13" r="4"/>
+                </svg>
+                <strong>每日一文</strong>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader"
+                    aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </div>
+</header>
+
+<main role="main">
+
+    <div class="album py-5 bg-light">
+
+        <div class="container">
+            <div class="title">
+                <h3>
+                    {{context.title}}
+                </h3>
+            </div>
+            <div class="author">{{context.author}}</div>
+            <div class="row">
+                {% for i in context.content_li %}
+                <div class="page_show">{{i}}</div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<footer class="text-muted">
+    <div class="container">
+        <p class="float-right">
+            <a href="#">Back to top</a>
+        </p>
+    </div>
+</footer>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</html>
+
