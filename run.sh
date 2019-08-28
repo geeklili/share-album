@@ -1,1 +1,1 @@
-nohup python3 manage.py &
+nohup python3 run.py &

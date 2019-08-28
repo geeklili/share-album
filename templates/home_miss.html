@@ -72,25 +72,8 @@
             };
         }
 
-        function or_not() {
-            if (confirm("确定恢复？")) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-
-        function or_not_delete() {
-            if (confirm("确定彻底删除？")) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-
         function delUpload(diva) {
-            var or_not_delet = or_not_delete();
-            if (or_not_delet) {
+            if (confirm("确定彻底删除？")) {
                 console.log(diva);
                 document.getElementById(diva).parentNode.removeChild(document.getElementById(diva));
 
@@ -99,8 +82,7 @@
         }
 
         function delUpload2(diva) {
-            var ornot = or_not();
-            if (ornot) {
+            if (confirm("确定恢复？")) {
                 console.log(diva);
                 document.getElementById(diva).parentNode.removeChild(document.getElementById(diva));
 
@@ -138,7 +120,7 @@
     </div>
     <div class="navbar navbar-dark bg-dark shadow-sm">
         <div class="container d-flex justify-content-between">
-            <a href="/" class="navbar-brand d-flex align-items-center">
+            <a href="/love" class="navbar-brand d-flex align-items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor"
                      stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="mr-2"
                      viewBox="0 0 24 24" focusable="false">
@@ -178,12 +160,10 @@
 
 </main>
 <div data-role="footer" data-position="fixed" data-id="footernav">
-    <div class="footer" style="text-align: center; margin-bottom: 20px;" data-role="navbar">
-        <a href="#" style="color:saddlebrown">关于我们</a>
-        <span>|</span>
-        <a href="#" style="color:saddlebrown">联系我们</a>
-        <span>|</span>
+    <div class="footer" style="text-align: center; margin-bottom: 20px;margin-top: 10px;" data-role="navbar">
         <a href="/miss" style="color:saddlebrown">刷新页面</a>
+        <span>|</span>
+        <a href="/page" style="color:saddlebrown">每日一文</a>
         <span>|</span>
         <a href="/" style="color:saddlebrown">返回首页</a>
     </div>
