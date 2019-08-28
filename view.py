@@ -51,7 +51,7 @@ def upload_row():
                     out.save(file2)
     else:
         print('没有选择文件')
-    return redirect(url_for("index"))
+    return redirect("/")
 
 
 @view.route("/pic", methods=["GET", "POST"])
