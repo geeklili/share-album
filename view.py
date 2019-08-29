@@ -4,7 +4,7 @@ import os
 import shutil
 import requests
 from PIL import Image
-from flask import render_template, Response, request, redirect, url_for,Blueprint
+from flask import render_template, Response, request, redirect, url_for,Blueprint, send_file
 from lxml import etree
 
 view = Blueprint('view', __name__)
@@ -266,6 +266,11 @@ def page():
     time_now = datetime.datetime.strftime(a, "%Y-%m-%d")
     context['time'] = time_now
     return render_template('home_page.html', context=context)
+
+
+@view.route('/favicon.ico', methods=["GET"])
+def favicon():
+    return send_file('./static/favicon/favicon.ico')
 
 
 def get_one_page():
