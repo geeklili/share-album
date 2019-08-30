@@ -56,9 +56,18 @@
             xhr.onreadystatechange = function () {
                 // 这步为判断服务器是否正确响应
                 console.log("llllll");
-
-                window.location.reload();
+                var boxObj = document.getElementById('img' + diva);
+                var uuid = guid(8,16);
+                boxObj.src = "/pic?"+ "&file=images" +"&name=" + diva + uuid;
             };
+        }
+
+        function guid() {
+            function S4() {
+                return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+            }
+
+            return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
         }
 
         function delUpload(diva) {
@@ -126,11 +135,11 @@
     <div class="album py-5 bg-light">
         <div class="container">
 
-            <div class="row">
+            <div class="row" id="father_div">
                 {% for i in context.li %}
                 <div class="col-md-4" id="{{i}}">
                     <div class="card mb-4 shadow-sm">
-                        <img class="card-img-top" src="/pic?name={{ i }}&file=images">
+                        <img class="card-img-top" id="img{{i}}" src="/pic?name={{ i }}&file=images">
                         <div class="card-body" style="height:30px;padding-top: 2px;">
                             <!--                            <div class="card-text">-->
                             <a href="javascript:delUpload('{{i}}')" style="float: left;color:#FFDAB9;"
@@ -139,9 +148,7 @@
                             <!--                            <a href="/revolve?name={{ i }}"  style="float: right;color:#FFDAB9;"-->
                             <a href="javascript:delUpload2('{{i}}')" style="float: right;color:#FFDAB9;"
                                class="revolvelink">↶</a>
-
                         </div>
-
                     </div>
                 </div>
                 {% endfor %}

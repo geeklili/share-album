@@ -61,6 +61,7 @@ def static_picture():
     :return: 返回图片流
     """
     pic_name = request.args.get('name')
+    pic_name = pic_name[:23]
     file = request.args.get('file')
     file_name = './static/%s/%s' % (file, pic_name)
     # print(file_name)
