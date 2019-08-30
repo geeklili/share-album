@@ -4,7 +4,7 @@ import os
 import shutil
 import requests
 from PIL import Image
-from flask import render_template, Response, request, redirect, url_for,Blueprint, send_file
+from flask import render_template, Response, request, redirect, Blueprint, send_file
 from lxml import etree
 
 view = Blueprint('view', __name__)
@@ -64,7 +64,6 @@ def static_picture():
     pic_name = pic_name[:23]
     file = request.args.get('file')
     file_name = './static/%s/%s' % (file, pic_name)
-    # print(file_name)
     with open(file_name, 'rb') as f:
         content = f.read()
     resp = Response(content, mimetype="image/jpeg")
@@ -81,7 +80,6 @@ def delete():
     file_name = './static/images/%s' % pic_name
     file_name2 = './static/images_delete/%s' % pic_name
     shutil.move(file_name, file_name2)
-    # return redirect(url_for("index"))
     return "200"
 
 
@@ -95,7 +93,6 @@ def delete_recycle():
     file_name = './static/images_delete/%s' % pic_name
     file_name2 = './static/images_clear/%s' % pic_name
     shutil.move(file_name, file_name2)
-    # return redirect(url_for("miss"))
     return "200"
 
 
@@ -106,11 +103,8 @@ def delete_clear():
     :return: 200
     """
     pic_name = request.args.get('name')
-    # file_name = './static/images_delete/%s' % pic_name
     file_name2 = './static/images_clear/%s' % pic_name
     os.remove(file_name2)
-    # shutil.move(file_name, file_name2)
-    # return redirect(url_for("miss"))
     return "200"
 
 
@@ -121,11 +115,8 @@ def delete_keep():
     :return: 200
     """
     pic_name = request.args.get('name')
-    # file_name = './static/images_delete/%s' % pic_name
     file_name2 = './static/images_keep/%s' % pic_name
     os.remove(file_name2)
-    # shutil.move(file_name, file_name2)
-    # return redirect(url_for("miss"))
     return "200"
 
 
@@ -138,9 +129,7 @@ def add_clear():
     pic_name = request.args.get('name')
     file_name = './static/images_delete/%s' % pic_name
     file_name2 = './static/images_clear/%s' % pic_name
-    # os.remove(file_name2)
     shutil.move(file_name2, file_name)
-    # return redirect(url_for("miss"))
     return "200"
 
 
@@ -152,13 +141,9 @@ def revolve():
     """
     pic_name = request.args.get('name')
     file_name = './static/images/%s' % pic_name
-    # file_name2 = './static/images/%s' % pic_name
     img = Image.open(file_name)  # 打开图片
-
     img3 = img.transpose(Image.ROTATE_90)  # 旋转 90 度角。
     img3.save(file_name)
-    # shutil.move(file_name, file_name2)
-    # return redirect(url_for("index"))
     return "200"
 
 
@@ -172,7 +157,7 @@ def add():
     file_name = './static/images/%s' % pic_name
     file_name2 = './static/images_delete/%s' % pic_name
     shutil.move(file_name2, file_name)
-    return redirect(url_for("miss"))
+    return redirect('/miss')
 
 
 @view.route('/', methods=["GET", "POST"])
@@ -184,7 +169,6 @@ def index():
     :return: 返回主页html
     """
     pic_li = os.listdir('./static/images/')
-    print(pic_li)
     pic_li.sort(reverse=True)
     a = datetime.datetime.now()
     a = a + datetime.timedelta(0.5)
@@ -200,7 +184,6 @@ def miss():
     :return: 返回回收站主页html
     """
     pic_li = os.listdir('./static/images_delete/')
-    print(pic_li)
     pic_li.sort(reverse=True)
     a = datetime.datetime.now()
     a = a + datetime.timedelta(0.5)
@@ -216,7 +199,6 @@ def keep():
     :return: 返回所有照片主页html
     """
     pic_li = os.listdir('./static/images_keep/')
-    print(pic_li)
     pic_li.sort(reverse=True)
     a = datetime.datetime.now()
     a = a + datetime.timedelta(0.5)
@@ -232,7 +214,6 @@ def clear():
     :return: 返回清空站主页html
     """
     pic_li = os.listdir('./static/images_clear/')
-    print(pic_li)
     pic_li.sort(reverse=True)
     a = datetime.datetime.now()
     a = a + datetime.timedelta(0.5)
@@ -252,7 +233,7 @@ def clear_all():
         file_name = './static/images_delete/%s' % name
         file_name2 = './static/images_clear/%s' % name
         shutil.move(file_name, file_name2)
-    return redirect(url_for("miss"))
+    return "200"
 
 
 @view.route('/page', methods=["GET", "POST"])
