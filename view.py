@@ -250,6 +250,22 @@ def page():
     return render_template('home_page.html', context=context)
 
 
+@view.route('/js_detail', methods=["GET", "POST"])
+def js_detail():
+    pic_name = request.args.get('name')
+    context = dict()
+    context['detail_name'] = pic_name
+    return redirect('/detail')
+
+
+@view.route('/detail', methods=["GET", "POST"])
+def detail():
+    pic_name = request.args.get('name')
+    context = dict()
+    context['detail_name'] = pic_name
+    return render_template('home_detail.html', context=context)
+
+
 @view.route('/favicon.ico', methods=["GET"])
 def favicon():
     return send_file('./static/favicon/favicon.ico')
