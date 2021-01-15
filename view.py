@@ -84,7 +84,7 @@ def delete():
         file_name2 = './static/images_delete/%s' % pic_name
         shutil.move(file_name, file_name2)
     else:
-        return '500'
+        return redirect("/")
     return "200"
 
 
@@ -101,7 +101,7 @@ def delete_recycle():
         file_name2 = './static/images_clear/%s' % pic_name
         shutil.move(file_name, file_name2)
     else:
-        return '500'
+        return redirect("/")
     return "200"
 
 
@@ -118,7 +118,7 @@ def delete_clear():
         file_name2 = './static/images_clear/%s' % pic_name
         os.remove(file_name2)
     else:
-        return '500'
+        return redirect("/")
     return "200"
 
 
@@ -134,7 +134,7 @@ def delete_keep():
         file_name2 = './static/images_keep/%s' % pic_name
         os.remove(file_name2)
     else:
-        '500'
+        return redirect("/")
     return "200"
 
 
@@ -151,7 +151,7 @@ def add_clear():
         file_name2 = './static/images_clear/%s' % pic_name
         shutil.move(file_name2, file_name)
     else:
-        return '500'
+        return redirect("/")
     return "200"
 
 
@@ -182,7 +182,7 @@ def add():
         file_name2 = './static/images_delete/%s' % pic_name
         shutil.move(file_name2, file_name)
     else:
-        return '500'
+        return redirect("/")
     return redirect('/miss')
 
 

@@ -14,7 +14,7 @@ daemon_stop(){
 	arr=(`echo ${pid} | tr ',' ' '`)
 	echo ${arr[0]}
 	kill -9 ${arr[0]}
-	sleep 2
+	sleep 1
 	echo "Serverkilled."
 }
 
