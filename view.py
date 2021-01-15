@@ -76,10 +76,15 @@ def delete():
     删除图片的接口，将图片存到回收站的文件夹里
     :return: 重定向到主页
     """
+    imgs_li = os.listdir('./static/images')
+
     pic_name = request.args.get('name')
-    file_name = './static/images/%s' % pic_name
-    file_name2 = './static/images_delete/%s' % pic_name
-    shutil.move(file_name, file_name2)
+    if pic_name in imgs_li:
+        file_name = './static/images/%s' % pic_name
+        file_name2 = './static/images_delete/%s' % pic_name
+        shutil.move(file_name, file_name2)
+    else:
+        return '500'
     return "200"
 
 
@@ -89,10 +94,14 @@ def delete_recycle():
     删除图片的接口，将图片存到清空站
     :return: 200
     """
+    imgs_li = os.listdir('./static/images_delete')
     pic_name = request.args.get('name')
-    file_name = './static/images_delete/%s' % pic_name
-    file_name2 = './static/images_clear/%s' % pic_name
-    shutil.move(file_name, file_name2)
+    if pic_name in imgs_li:
+        file_name = './static/images_delete/%s' % pic_name
+        file_name2 = './static/images_clear/%s' % pic_name
+        shutil.move(file_name, file_name2)
+    else:
+        return '500'
     return "200"
 
 
@@ -102,9 +111,14 @@ def delete_clear():
     删除清空站里的图片
     :return: 200
     """
+    imgs_li = os.listdir('./static/images_clear')
+
     pic_name = request.args.get('name')
-    file_name2 = './static/images_clear/%s' % pic_name
-    os.remove(file_name2)
+    if pic_name in imgs_li:
+        file_name2 = './static/images_clear/%s' % pic_name
+        os.remove(file_name2)
+    else:
+        return '500'
     return "200"
 
 
@@ -114,9 +128,13 @@ def delete_keep():
     删除图片的接口，删除保有的图片
     :return: 200
     """
+    imgs_li = os.listdir('./static/images_keep')
     pic_name = request.args.get('name')
-    file_name2 = './static/images_keep/%s' % pic_name
-    os.remove(file_name2)
+    if imgs_li in imgs_li:
+        file_name2 = './static/images_keep/%s' % pic_name
+        os.remove(file_name2)
+    else:
+        '500'
     return "200"
 
 
@@ -127,9 +145,13 @@ def add_clear():
     :return: 200
     """
     pic_name = request.args.get('name')
-    file_name = './static/images_delete/%s' % pic_name
-    file_name2 = './static/images_clear/%s' % pic_name
-    shutil.move(file_name2, file_name)
+    imgs_li = os.listdir('./static/images_delete')
+    if pic_name in imgs_li:
+        file_name = './static/images_delete/%s' % pic_name
+        file_name2 = './static/images_clear/%s' % pic_name
+        shutil.move(file_name2, file_name)
+    else:
+        return '500'
     return "200"
 
 
@@ -154,9 +176,13 @@ def add():
     :return: 重定向到主页
     """
     pic_name = request.args.get('name')
-    file_name = './static/images/%s' % pic_name
-    file_name2 = './static/images_delete/%s' % pic_name
-    shutil.move(file_name2, file_name)
+    imgs_li = os.listdir('./static/images_delete')
+    if pic_name in imgs_li:
+        file_name = './static/images/%s' % pic_name
+        file_name2 = './static/images_delete/%s' % pic_name
+        shutil.move(file_name2, file_name)
+    else:
+        return '500'
     return redirect('/miss')
 
 
