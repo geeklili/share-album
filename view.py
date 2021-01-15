@@ -284,6 +284,11 @@ def detail():
     return render_template('home_detail.html', context=context)
 
 
+@view.route('/robots.txt', methods=["GET", "POST"])
+def robots():
+    return send_file('./static/robots/robots.txt')
+
+
 @view.route('/favicon.ico', methods=["GET"])
 def favicon():
     return send_file('./static/favicon/favicon.ico')

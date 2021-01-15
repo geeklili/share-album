@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /delete
+Disallow: /upload_row
