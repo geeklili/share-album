@@ -41,5 +41,7 @@ python3 run.py
 
 运行方法二：
 ```
-./run.sh
+./run.sh  --start
+./run.sh  --stop
+./run.sh  --restart
 ```
