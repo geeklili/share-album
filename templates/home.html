@@ -25,39 +25,40 @@
     <script language="javascript">
 
         //删除指定元素
-        function del_picture(diva) {
+        function del_picture(diva, password) {
             //创建异步对象
             var xhr = new XMLHttpRequest();
             //设置请求的类型及url
-            //post请求一定要添加请求头才行不然会报错
-            // xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-            var resp = "/delete?name=" + diva;
+            //var resp = "/delete?name=" + diva+"&"+"pw="+password;
+            var resp = "/delete"
             console.log(resp);
-            xhr.open('post', resp);
+            xhr.open('POST', resp, true);
+            //post请求一定要添加请求头才行不然会报错
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
             //发送请求
-            xhr.send();
+            xhr.send("name=" + diva+"&"+"pw="+password);
             xhr.onreadystatechange = function () {
                 // 这步为判断服务器是否正确响应
                 console.log("llllll");
-
 
             };
         }
 
-        function revolve_picture(diva) {
+        function revolve_picture(diva, password) {
             //创建异步对象
             var xhr = new XMLHttpRequest();
             //设置请求的类型及url
             //post请求一定要添加请求头才行不然会报错
             // xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-            var resp = "/revolve?name=" + diva;
+            var resp = "/revolve"
             console.log(resp);
             xhr.open('post', resp);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
             //发送请求
-            xhr.send();
+            xhr.send("name=" + diva+"&"+"pw="+password);
             xhr.onreadystatechange = function () {
                 // 这步为判断服务器是否正确响应
-                console.log("llllll");
+                // console.log("llllll");
                 var boxObj = document.getElementById('img' + diva);
                 var uuid = guid(8,16);
                 boxObj.src = "/pic?"+ "&file=images" +"&name=" + diva + uuid;
@@ -71,21 +72,28 @@
             return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
         }
 
-        function delUpload(diva) {
-            if (confirm("确定删除？")) {
-                console.log(diva);
-                document.getElementById(diva).parentNode.removeChild(document.getElementById(diva));
-
-                del_picture(diva);
-            }
-        }
-
         function delUpload2(diva) {
-            if (confirm("确定旋转？")) {
-                console.log(diva);
-                revolve_picture(diva);
+          var pw=prompt("请输入口令", "")
+          //console.log(diva);
+          if (pw!="") {
+            //console.log(diva);
+            revolve_picture(diva,pw);
             }
         }
+
+
+        function disp_prompt(diva) {
+
+          var pw=prompt("请输入口令","")
+          //console.log(diva);
+          if (pw!="")
+            {
+                //console.log(diva);
+                document.getElementById(diva).parentNode.removeChild(document.getElementById(diva));
+                del_picture(diva, pw);
+            }
+          }
+
 
     </script>
 </head>
@@ -144,7 +152,7 @@
                         <img class="card-img-top" id="img{{i}}" src="/pic?name={{ i }}&file=images">
                         <div class="card-body" style="height:30px;padding-top: 2px;">
                             <!--                            <div class="card-text">-->
-                            <a href="javascript:delUpload('{{i}}')" style="float: left;color:#FFDAB9;"
+                            <a href="javascript:disp_prompt('{{i}}')" style="float: left;color:#FFDAB9;"
                                class="deletelink">-</a>
                             <!--                                <a href="/delete?name={{ i }}" style="float: left;color:#FFDAB9;" class="deletelink">-</a>-->
                             <!--                            <a href="/revolve?name={{ i }}"  style="float: right;color:#FFDAB9;"-->
