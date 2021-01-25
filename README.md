@@ -35,6 +35,19 @@
 - run.py
 - run.sh
 
+
+#### 安装环境
+```
+$ python3.8 -m venv venv  
+
+$ . venv/bin/activate
+
+$ python -m pip install --upgrade pip  //使用python3.6时候pip版本对应不上出错时候使用
+
+$ pip install -r requirements.txt
+
+
+```
 运行方法一：
 ```
 python3 run.py
