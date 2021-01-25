@@ -1,5 +1,5 @@
 from flask import Flask
-from view import view
+from api.view import view
 
 app = Flask(__name__)
 app.register_blueprint(view, url_prefix='/')
