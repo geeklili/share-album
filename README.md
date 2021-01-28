@@ -53,7 +53,7 @@ $ pip install -r requirements.txt
 python3 run.py
 ```
 
-运行方法二[此方法用于后台运行，根据nohub文件查看log信息：
+运行方法二[此方法用于后台运行，根据nohub文件查看log信息]：
 ```
 ./run.sh  --start
 ./run.sh  --stop
