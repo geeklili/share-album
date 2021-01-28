@@ -83,8 +83,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-8 col-md-7 py-4">
-                    <h4 class="text-white">test</h4>
-                    <p class="text-muted">test</p>
+                    <h4 class="text-white">上传图片</h4>
+                    <p class="text-muted">相册上传图片无权限限制</p>
                     <form action="/upload_row/" method="post" enctype="multipart/form-data">
                         <label for="fid"><input type="file" id="fid" name="f1"></label>
                         <div onclick="alert('上传中...请等待几秒')" id="submit_id"><input type="submit" value="上传"></div>
@@ -92,8 +92,6 @@
                 </div>
                 <div class="col-sm-4 offset-md-1 py-4">
                     <ul class="list-unstyled">
-                        <li><a href="/page" class="text-white">test</a></li>
-                        <li><a href="#" class="text-white">test</a></li>
                         <li><a href="#" class="text-white">{{context.time}}</a></li>
                         <li><a href="/miss" class="text-white">回收站</a></li>
                     </ul>
