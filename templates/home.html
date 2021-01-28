@@ -39,7 +39,7 @@
             xhr.send("name=" + diva+"&"+"pw="+password);
             xhr.onreadystatechange = function () {
                 // 这步为判断服务器是否正确响应
-                console.log("llllll");
+                console.log("正确");
 
             };
         }
@@ -86,7 +86,8 @@
 
           var pw=prompt("请输入口令","")
           //console.log(diva);
-          if (pw!="")
+          console.log(pw);
+          if (pw!="" && pw != null)
             {
                 //console.log(diva);
                 document.getElementById(diva).parentNode.removeChild(document.getElementById(diva));
