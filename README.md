@@ -48,12 +48,12 @@ $ pip install -r requirements.txt
 
 
 ```
-运行方法一：
+运行方法一[此方法用于前端运行，可以实时查看log信息]：
 ```
 python3 run.py
 ```
 
-运行方法二：
+运行方法二[此方法用于后台运行，根据nohub文件查看log信息：
 ```
 ./run.sh  --start
 ./run.sh  --stop
