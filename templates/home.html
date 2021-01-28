@@ -24,47 +24,6 @@
     <script type="text/javascript" src="static/js/jquery.min.js"></script>
     <script language="javascript">
 
-        //删除指定元素
-        function del_picture(diva, password) {
-            //创建异步对象
-            var xhr = new XMLHttpRequest();
-            //设置请求的类型及url
-            //var resp = "/delete?name=" + diva+"&"+"pw="+password;
-            var resp = "/delete"
-            console.log(resp);
-            xhr.open('POST', resp, true);
-            //post请求一定要添加请求头才行不然会报错
-            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-            //发送请求
-            xhr.send("name=" + diva+"&"+"pw="+password);
-            xhr.onreadystatechange = function () {
-                // 这步为判断服务器是否正确响应
-                console.log("正确");
-
-            };
-        }
-
-        function revolve_picture(diva, password) {
-            //创建异步对象
-            var xhr = new XMLHttpRequest();
-            //设置请求的类型及url
-            //post请求一定要添加请求头才行不然会报错
-            // xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-            var resp = "/revolve"
-            console.log(resp);
-            xhr.open('post', resp);
-            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-            //发送请求
-            xhr.send("name=" + diva+"&"+"pw="+password);
-            xhr.onreadystatechange = function () {
-                // 这步为判断服务器是否正确响应
-                // console.log("llllll");
-                var boxObj = document.getElementById('img' + diva);
-                var uuid = guid(8,16);
-                boxObj.src = "/pic?"+ "&file=images" +"&name=" + diva + uuid;
-            };
-        }
-
         function guid() {
             function S4() {
                 return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
@@ -72,26 +31,46 @@
             return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
         }
 
-        function delUpload2(diva) {
-          var pw=prompt("请输入口令", "")
-          //console.log(diva);
-          if (pw!="") {
-            //console.log(diva);
-            revolve_picture(diva,pw);
+        function revolve_pic(diva) {
+            var pw=prompt("请输入口令", "")
+            if (pw!="" && pw != null) {
+                $.ajax({
+                        url : "/revolve",
+                        data :{'name' : diva,
+                                'pw' : pw},
+                        type : "POST",
+                        success : function(data){
+                                    if (data =="200"){
+                                        var boxObj = document.getElementById('img' + diva);
+                                        var uuid = guid(8,16);
+                                        boxObj.src = "/pic?"+ "&file=images" +"&name=" + diva + uuid;
+                                    }
+                                    else{
+                                        alert("对不起，你没有该权限");
+                                    }
+                              }
+                    })
             }
         }
 
-
-        function disp_prompt(diva) {
-
+        function delete_pic(diva) {
           var pw=prompt("请输入口令","")
-          //console.log(diva);
-          console.log(pw);
-          if (pw!="" && pw != null)
-            {
-                //console.log(diva);
-                document.getElementById(diva).parentNode.removeChild(document.getElementById(diva));
-                del_picture(diva, pw);
+          if (pw!="" && pw != null){
+               $.ajax({
+                    url : "/delete",
+                    data :{'name' : diva,
+                            'pw' : pw},
+                    type : "POST",
+                    success : function(data){
+                                if (data =="200"){
+                                    alert("删除成功");
+                                    document.getElementById(diva).parentNode.removeChild(document.getElementById(diva));
+                                }
+                                else{
+                                    alert("对不起，你没有该权限");
+                                }
+                          }
+                })
             }
           }
 
@@ -153,11 +132,11 @@
                         <img class="card-img-top" id="img{{i}}" src="/pic?name={{ i }}&file=images">
                         <div class="card-body" style="height:30px;padding-top: 2px;">
                             <!--                            <div class="card-text">-->
-                            <a href="javascript:disp_prompt('{{i}}')" style="float: left;color:#FFDAB9;"
+                            <a href="javascript:delete_pic('{{i}}')" style="float: left;color:#FFDAB9;"
                                class="deletelink">-</a>
                             <!--                                <a href="/delete?name={{ i }}" style="float: left;color:#FFDAB9;" class="deletelink">-</a>-->
                             <!--                            <a href="/revolve?name={{ i }}"  style="float: right;color:#FFDAB9;"-->
-                            <a href="javascript:delUpload2('{{i}}')" style="float: right;color:#FFDAB9;"
+                            <a href="javascript:revolve_pic('{{i}}')" style="float: right;color:#FFDAB9;"
                                class="revolvelink">↶</a>
                         </div>
                     </div>

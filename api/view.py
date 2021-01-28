@@ -84,9 +84,10 @@ def delete():
         file_name = './static/images/%s' % pic_name
         file_name2 = './static/images_delete/%s' % pic_name
         shutil.move(file_name, file_name2)
+        return "200"
     else:
-        return redirect("/")
-    return "200"
+        return "401"
+
 
 
 @view.route("/revolve", methods=["GET", "POST"])
