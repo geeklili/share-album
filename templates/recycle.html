@@ -59,6 +59,7 @@
                     success : function(data){
                                 if (data =="200"){
                                     alert("删除成功");
+                                    document.getElementById('all_element').remove();
                                 }
                                 else{
                                     alert("对不起，你没有该权限");
@@ -106,7 +107,7 @@
             if (confirm("确定删除全部？")) {
                 console.log()
                 del_all();
-                document.getElementById('all_element').remove();
+
             }
         }
     </script>
