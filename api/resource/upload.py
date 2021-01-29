@@ -20,10 +20,9 @@ class UploadPicture(Resource):
         if fp is not None:
             now_date = datetime.datetime.now()
             uid = now_date.strftime('%Y-%m-%d-%H-%M-%S')
-
             # 保存文件到服务器本地
             file = "./static/images/%s.jpg" % uid
-            file_keep = "./static/images_keep/%s.jpg" % uid
+            file_keep = "./static/keep/%s.jpg" % uid
             fp.save(file)
             shutil.copy(file, file_keep)
 

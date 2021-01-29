@@ -8,9 +8,11 @@ class Recover(Resource):
     """恢复图片
     """
     def get(self):
-        pic_name = request.args.get('name')
+
+        pic_name = request.form.get('name')
+        pw = request.form.get('pw')
         imgs_li = os.listdir('./static/recycle')
-        if pic_name in imgs_li:
+        if pic_name in imgs_li and pw == 'admin':
             file_name = './static/images/%s' % pic_name
             file_name2 = './static/recycle/%s' % pic_name
             shutil.move(file_name2, file_name)
@@ -33,7 +35,8 @@ class DeleteRecyclePicture(Resource):
         """
         imgs_li = os.listdir('./static/recycle')
         pic_name = request.args.get('name')
-        if pic_name in imgs_li:
+        pw = request.form.get('pw')
+        if pic_name in imgs_li and pw == 'admin':
             file_name = './static/recycle/%s' % pic_name
             os.remove(file_name)
             return "200"
@@ -49,10 +52,14 @@ class DeleteAllRecyclePicture(Resource):
     """
     def get(self):
         pic_li = os.listdir('./static/recycle/')
-        for name in pic_li:
-            file_name = './static/recycle/%s' % name
-            os.remove(file_name)
-        return "200"
+        pw = request.form.get('pw')
+        if pic_li and pw == 'admin':
+            for name in pic_li:
+                file_name = './static/recycle/%s' % name
+                os.remove(file_name)
+            return '200'
+        else:
+            return '401'
 
     def post(self):
         return self.get()

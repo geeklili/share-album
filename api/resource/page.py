@@ -16,7 +16,7 @@ class GetIndex(Resource):
         a = a + datetime.timedelta(0)
         time_now = datetime.datetime.strftime(a, "%Y-%m-%d")
         context = {'name': "xiaohua", 'li': pic_li, "time": time_now}
-        return make_response(render_template('home.html', context=context))
+        return make_response(render_template('index.html', context=context))
 
     def post(self):
         return self.get()
@@ -55,7 +55,7 @@ class GetAllUpload(Resource):
     """所有图片
     """
     def get(self):
-        pic_li = os.listdir('./static/images_keep/')
+        pic_li = os.listdir('./static/keep/')
         pic_li.sort(reverse=True)
         a = datetime.datetime.now()
         a = a + datetime.timedelta(0.5)

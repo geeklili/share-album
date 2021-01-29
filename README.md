@@ -45,7 +45,6 @@ $ python -m pip install --upgrade pip  //使用python3.6时候pip版本对应不
 
 $ pip install -r requirements.txt
 
-
 ```
 运行方法一[此方法用于前端运行，可以实时查看log信息]：
 ```

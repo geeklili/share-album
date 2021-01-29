@@ -26,78 +26,87 @@
     <script type="text/javascript" src="static/js/popper.min.js"></script>
     <script type="text/javascript" src="static/js/jquery.min.js"></script>
     <script language="javascript">
-        //删除指定元素
-        function del_picture(diva) {
-            //创建异步对象
-            var xhr = new XMLHttpRequest();
-            //设置请求的类型及url
-            //post请求一定要添加请求头才行不然会报错
-            // xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-            var resp = "/delete_recycle?name=" + diva;
-            console.log(resp);
-            xhr.open('post', resp);
-            //发送请求
-            xhr.send();
-            xhr.onreadystatechange = function () {
-                // 这步为判断服务器是否正确响应
-                console.log("llllll");
 
-            };
-        }
+
+        function del_picture(diva) {
+          var pw=prompt("请输入口令","")
+          if (pw!="" && pw != null){
+               $.ajax({
+                    url : "/delete_recycle",
+                    data :{'name' : diva,
+                            'pw' : pw},
+                    type : "POST",
+                    success : function(data){
+                                if (data =="200"){
+                                    alert("删除成功");
+                                    document.getElementById(diva).parentNode.removeChild(document.getElementById(diva));
+                                }
+                                else{
+                                    alert("对不起，你没有该权限");
+                                }
+                          }
+                })
+            }
+          }
+
+        function del_all() {
+          var pw=prompt("请输入口令","")
+          if (pw!="" && pw != null){
+               $.ajax({
+                    url : "/clear_all",
+                    data :{'pw' : pw},
+                    type : "POST",
+                    success : function(data){
+                                if (data =="200"){
+                                    alert("删除成功");
+                                }
+                                else{
+                                    alert("对不起，你没有该权限");
+                                }
+                          }
+                })
+            }
+          }
 
         function add_picture(diva) {
-            //创建异步对象
-            var xhr = new XMLHttpRequest();
-            //设置请求的类型及url
-            //post请求一定要添加请求头才行不然会报错
-            // xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-            var resp = "/add?name=" + diva;
-            console.log(resp);
-            xhr.open('post', resp);
-            //发送请求
-            xhr.send();
-            xhr.onreadystatechange = function () {
-                // 这步为判断服务器是否正确响应
-                console.log("llllll");
+          var pw=prompt("请输入口令","")
+          if (pw!="" && pw != null){
+               $.ajax({
+                    url : "/add",
+                    data :{'name' : diva,
+                            'pw' : pw},
+                    type : "POST",
+                    success : function(data){
+                                if (data =="200"){
+                                    alert("恢复成功");
+                                    document.getElementById(diva).parentNode.removeChild(document.getElementById(diva));
 
-            };
-        }
+                                }
+                                else{
+                                    alert("对不起，你没有该权限");
+                                }
+                          }
+                })
+            }
+          }
 
-        function del_all_picture() {
-            if (confirm("确定清空回收站？")) {
-            //创建异步对象
-            var xhr = new XMLHttpRequest();
-            //设置请求的类型及url
-            //post请求一定要添加请求头才行不然会报错
-            // xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-            var resp = "/clear_all";
-            console.log(resp);
-            xhr.open('post', resp);
-            //发送请求
-            xhr.send();
-            xhr.onreadystatechange = function () {
-                // 这步为判断服务器是否正确响应
-                window.location.reload()
-
-            };
-        }}
-
-        function delUpload(diva) {
+        function DeletePic(diva) {
             if (confirm("确定彻底删除？")) {
-                console.log(diva);
-                document.getElementById(diva).parentNode.removeChild(document.getElementById(diva));
-
                 del_picture(diva);
             }
         }
 
-        function delUpload2(diva) {
+        function RecoverPic(diva) {
             if (confirm("确定恢复？")) {
-                console.log(diva);
-                document.getElementById(diva).parentNode.removeChild(document.getElementById(diva));
-
                 add_picture(diva);
+            }
+        }
 
+        function DeleteAllPic() {
+            if (confirm("确定删除全部？")) {
+                console.log()
+                del_all();
+                document.getElementById('all_element').remove();
             }
         }
     </script>
@@ -111,7 +120,7 @@
                 <div class="col-sm-8 col-md-7 py-4">
                     <h5 class="text-white">似水流年</h5>
                     <p class="text-muted3"><a href="#" class="text-white">莫失莫忘</a></p>
-                    <p class="text-muted2"><a href="javascript:del_all_picture()" class="text-white">清空回收站</a></p>
+                    <p class="text-muted2"><a href="javascript:DeleteAllPic()" class="text-white">清空回收站</a></p>
 
                 </div>
                 <div class="col-sm-4 offset-md-1 py-4">
@@ -150,14 +159,14 @@
     <div class="album py-5 bg-light">
         <div class="container">
 
-            <div class="row">
+            <div class="row" id="all_element">
                 {% for i in context.li %}
                 <div class="col-md-4" id="{{i}}">
                     <div class="card mb-4 shadow-sm">
                         <img class="card-img-top" src="/pic?name={{ i }}&file=recycle">
                         <div class="card-body" style="height:30px;padding-top: 2px;">
-                            <a href="javascript:delUpload2('{{i}}')" style="float: left;color:#FFDAB9;" class="addlink">↞</a>
-                            <a href="javascript:delUpload('{{i}}')" style="float: right;color:#FFDAB9;"
+                            <a href="javascript:RecoverPic('{{i}}')" style="float: left;color:#FFDAB9;" class="addlink">↞</a>
+                            <a href="javascript:DeletePic('{{i}}')" style="float: right;color:#FFDAB9;"
                                class="delete_recycle_link">✁</a>
                         </div>
                     </div>
