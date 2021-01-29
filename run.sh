@@ -12,7 +12,7 @@ daemon_stop(){
 	echo ${arr[0]}
 	kill -9 ${arr[0]}
 	sleep 1
-	echo "Serverkilled."
+	echo "Server killed."
 }
 
 case "$1" in
