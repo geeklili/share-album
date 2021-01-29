@@ -7,9 +7,9 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v3.8.5">
-    <title>回收站</title>
+    <title>喵喵</title>
 
-    <!--    <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/album/">-->
+<!--    <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/album/">-->
 
     <link rel="stylesheet" href="static/js/bootstrap.min.css">
     <link rel="shortcut" href="/favicon.ico"/>
@@ -21,19 +21,18 @@
         }
 
     </style>
-    <script type="text/javascript" src="static/js/jquery.min.js"></script>
-    <script type="text/javascript" src="static/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="static/js/popper.min.js"></script>
+
     <script type="text/javascript" src="static/js/jquery.min.js"></script>
     <script language="javascript">
         //删除指定元素
+
         function del_picture(diva) {
             //创建异步对象
             var xhr = new XMLHttpRequest();
             //设置请求的类型及url
             //post请求一定要添加请求头才行不然会报错
             // xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-            var resp = "/delete_recycle?name=" + diva;
+            var resp = "/delete_keep?name=" + diva;
             console.log(resp);
             xhr.open('post', resp);
             //发送请求
@@ -44,60 +43,12 @@
 
             };
         }
-
-        function add_picture(diva) {
-            //创建异步对象
-            var xhr = new XMLHttpRequest();
-            //设置请求的类型及url
-            //post请求一定要添加请求头才行不然会报错
-            // xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-            var resp = "/add?name=" + diva;
-            console.log(resp);
-            xhr.open('post', resp);
-            //发送请求
-            xhr.send();
-            xhr.onreadystatechange = function () {
-                // 这步为判断服务器是否正确响应
-                console.log("llllll");
-
-            };
-        }
-
-        function del_all_picture() {
-            if (confirm("确定清空回收站？")) {
-            //创建异步对象
-            var xhr = new XMLHttpRequest();
-            //设置请求的类型及url
-            //post请求一定要添加请求头才行不然会报错
-            // xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-            var resp = "/clear_all";
-            console.log(resp);
-            xhr.open('post', resp);
-            //发送请求
-            xhr.send();
-            xhr.onreadystatechange = function () {
-                // 这步为判断服务器是否正确响应
-                window.location.reload()
-
-            };
-        }}
 
         function delUpload(diva) {
             if (confirm("确定彻底删除？")) {
                 console.log(diva);
                 document.getElementById(diva).parentNode.removeChild(document.getElementById(diva));
-
                 del_picture(diva);
-            }
-        }
-
-        function delUpload2(diva) {
-            if (confirm("确定恢复？")) {
-                console.log(diva);
-                document.getElementById(diva).parentNode.removeChild(document.getElementById(diva));
-
-                add_picture(diva);
-
             }
         }
     </script>
@@ -112,8 +63,7 @@
                     <h5 class="text-white">似水流年</h5>
                     <p class="text-muted3"><a href="/clear" class="text-white">莫</a><a href="#"
                                                                                        class="text-white">失莫忘</a></p>
-                    <p class="text-muted2"><a href="javascript:del_all_picture()" class="text-white">清空回收站</a></p>
-
+                    <a href="/recycle" class="text-white">回收站</a>
                 </div>
                 <div class="col-sm-4 offset-md-1 py-4">
                     <ul class="list-unstyled">
@@ -130,14 +80,14 @@
     </div>
     <div class="navbar navbar-dark bg-dark shadow-sm">
         <div class="container d-flex justify-content-between">
-            <a href="/love" class="navbar-brand d-flex align-items-center">
+            <a href="/" class="navbar-brand d-flex align-items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor"
                      stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="mr-2"
                      viewBox="0 0 24 24" focusable="false">
                     <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
                     <circle cx="12" cy="13" r="4"/>
                 </svg>
-                <strong>主页</strong>
+                <strong>所有照片</strong>
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader"
                     aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
@@ -155,11 +105,11 @@
                 {% for i in context.li %}
                 <div class="col-md-4" id="{{i}}">
                     <div class="card mb-4 shadow-sm">
-                        <img class="card-img-top" src="/pic?name={{ i }}&file=images_delete">
+                        <img class="card-img-top" src="/pic?name={{ i }}&file=images_keep">
                         <div class="card-body" style="height:30px;padding-top: 2px;">
-                            <a href="javascript:delUpload2('{{i}}')" style="float: left;color:#FFDAB9;" class="addlink">↞</a>
+                            <a href="#" style="float: left;color:#FFDAB9;" class="addlink">↞</a>
                             <a href="javascript:delUpload('{{i}}')" style="float: right;color:#FFDAB9;"
-                               class="delete_recycle_link">✁</a>
+                               class="delete_keep_link">clear</a>
                         </div>
                     </div>
                 </div>
@@ -171,14 +121,16 @@
 </main>
 <div data-role="footer" data-position="fixed" data-id="footernav">
     <div class="footer" style="text-align: center; margin-bottom: 20px;margin-top: 10px;" data-role="navbar">
-        <a href="/miss" style="color:saddlebrown">刷新页面</a>
+        <a href="/keep" style="color:saddlebrown">刷新页面</a>
         <span>|</span>
         <a href="/page" style="color:saddlebrown">每日一文</a>
         <span>|</span>
-        <a href="/" style="color:saddlebrown">返回首页</a>
+        <a href="#" style="color:saddlebrown">返回顶部</a>
     </div>
 </div>
 </body>
-
+<script type="text/javascript" src="static/js/jquery.min.js"></script>
+<script type="text/javascript" src="static/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="static/js/popper.min.js"></script>
 </html>
 

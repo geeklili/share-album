@@ -1,8 +1,8 @@
 from flask import Flask
-from api.view import view
+from api import bp
 
 app = Flask(__name__)
-app.register_blueprint(view, url_prefix='/')
+app.register_blueprint(bp, url_prefix='/')
 
 
 if __name__ == '__main__':
