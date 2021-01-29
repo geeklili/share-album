@@ -1,12 +1,9 @@
 #!/bin/bash
-
-workdir=/root/Shared_Photo_Albums
 . venv/bin/activate
 
 daemon_start(){
-	cd $workdir
-	nohup python3 run.py&
-	echo"Serverstarted."
+	nohup python3 run.py &
+	echo"Server started."
 }
 
 daemon_stop(){

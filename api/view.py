@@ -205,7 +205,7 @@ def index():
     pic_li = os.listdir('./static/images/')
     pic_li.sort(reverse=True)
     a = datetime.datetime.now()
-    a = a + datetime.timedelta(0.5)
+    a = a + datetime.timedelta(0)
     time_now = datetime.datetime.strftime(a, "%Y-%m-%d")
     context = {'name': "xiaohua", 'li': pic_li, "time": time_now}
     return render_template('home.html', context=context)
