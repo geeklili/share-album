@@ -53,6 +53,7 @@ python3 run.py
 
 运行方法二[此方法用于后台运行，根据项目目录下，nohup.out文件查看log信息]：
 ```
+chmod +x run.sh
 ./run.sh  --start
 ./run.sh  --stop
 ./run.sh  --restart
