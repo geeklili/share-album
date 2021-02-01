@@ -10,7 +10,7 @@ class GetIndex(Resource):
     """
 
     def get(self):
-        pic_li = os.listdir('./static/images/')
+        pic_li = os.listdir('./static/img/images/')
         pic_li.sort(reverse=True)
         a = datetime.datetime.now()
         a = a + datetime.timedelta(0)
@@ -26,7 +26,7 @@ class GetRecycleBin(Resource):
     """回收站
     """
     def get(self):
-        pic_li = os.listdir('./static/recycle/')
+        pic_li = os.listdir('./static/img/recycle/')
         pic_li.sort(reverse=True)
         a = datetime.datetime.now()
         a = a + datetime.timedelta(0.5)
@@ -55,7 +55,7 @@ class GetAllUpload(Resource):
     """所有图片
     """
     def get(self):
-        pic_li = os.listdir('./static/keep/')
+        pic_li = os.listdir('./static/img/keep/')
         pic_li.sort(reverse=True)
         a = datetime.datetime.now()
         a = a + datetime.timedelta(0.5)

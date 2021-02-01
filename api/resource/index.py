@@ -9,12 +9,12 @@ class DeletePicture(Resource):
     """删除图片，将图片存到回收站
     """
     def get(self):
-        imgs_li = os.listdir('./static/images')
+        imgs_li = os.listdir('./static/img/images')
         pic_name = request.form.get('name')
         pw = request.form.get('pw')
         if pic_name in imgs_li and pw == 'admin':
-            file_name = './static/images/%s' % pic_name
-            file_name2 = './static/recycle/%s' % pic_name
+            file_name = './static/img/images/%s' % pic_name
+            file_name2 = './static/img/recycle/%s' % pic_name
             shutil.move(file_name, file_name2)
             return "200"
         else:
@@ -32,10 +32,10 @@ class Revolve(Resource):
         """
         pic_name = request.form.get('name')
         pw = request.form.get('pw')
-        imgs_li = os.listdir('./static/images')
+        imgs_li = os.listdir('./static/img/images')
         print(pic_name, imgs_li, pw, pic_name)
         if pic_name in imgs_li and pw == 'admin':
-            file_name = './static/images/%s' % pic_name
+            file_name = './static/img/images/%s' % pic_name
             img = Image.open(file_name)  # 打开图片
             img3 = img.transpose(Image.ROTATE_90)  # 旋转 90 度角。
             img3.save(file_name)
