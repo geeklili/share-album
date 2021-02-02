@@ -9,7 +9,7 @@
     <meta name="generator" content="Jekyll v3.8.5">
     <title>喵喵</title>
 
-<!--    <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/album/">-->
+    <!--    <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/album/">-->
 
     <link rel="stylesheet" href="static/js/bootstrap.min.css">
     <link rel="shortcut" href="/favicon.ico"/>
@@ -20,37 +20,70 @@
             }
         }
 
+
     </style>
 
     <script type="text/javascript" src="static/js/jquery.min.js"></script>
     <script language="javascript">
-        //删除指定元素
+
+
 
         function del_picture(diva) {
-            //创建异步对象
-            var xhr = new XMLHttpRequest();
-            //设置请求的类型及url
-            //post请求一定要添加请求头才行不然会报错
-            // xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-            var resp = "/delete_keep?name=" + diva;
-            console.log(resp);
-            xhr.open('post', resp);
-            //发送请求
-            xhr.send();
-            xhr.onreadystatechange = function () {
-                // 这步为判断服务器是否正确响应
-                console.log("llllll");
+          var pw=prompt("请输入口令","")
+          if (pw!="" && pw != null){
+               $.ajax({
+                    url : "/delete_keep",
+                    data :{'name' : diva,
+                            'pw' : pw},
+                    type : "POST",
+                    success : function(data){
+                                if (data =="200"){
+                                    alert("删除成功");
+                                    document.getElementById(diva).parentNode.removeChild(document.getElementById(diva));
+                                }
+                                else{
+                                    alert("对不起，你没有该权限");
+                                }
+                          }
+                })
+            }
+          }
 
-            };
-        }
+        function add_picture(diva) {
+          var pw=prompt("请输入口令","")
+          if (pw!="" && pw != null){
+               $.ajax({
+                    url : "/copy",
+                    data :{'name' : diva,
+                            'pw' : pw},
+                    type : "POST",
+                    success : function(data){
+                                if (data =="200"){
+                                    alert("恢复成功");
+                                    document.getElementById(diva).parentNode.removeChild(document.getElementById(diva));
 
-        function delUpload(diva) {
+                                }
+                                else{
+                                    alert("对不起，你没有该权限");
+                                }
+                          }
+                })
+            }
+          }
+
+        function DeletePic(diva) {
             if (confirm("确定彻底删除？")) {
-                console.log(diva);
-                document.getElementById(diva).parentNode.removeChild(document.getElementById(diva));
                 del_picture(diva);
             }
         }
+
+        function RecoverPic(diva) {
+            if (confirm("确定恢复？")) {
+                add_picture(diva);
+            }
+        }
+
+
     </script>
 
 </head>
@@ -106,9 +139,9 @@
                     <div class="card mb-4 shadow-sm">
                         <img class="card-img-top" src="/pic?name={{ i }}&file=keep">
                         <div class="card-body" style="height:30px;padding-top: 2px;">
-                            <a href="#" style="float: left;color:#FFDAB9;" class="addlink">↞</a>
-                            <a href="javascript:delUpload('{{i}}')" style="float: right;color:#FFDAB9;"
-                               class="delete_keep_link"></a>
+                            <a href="javascript:RecoverPic('{{i}}')" style="float: left;color:#FFDAB9;" class="addlink">↞</a>
+                            <a href="javascript:DeletePic('{{i}}')" style="float: right;color:#FFDAB9;"
+                               class="delete_keep_link">✁</a>
                         </div>
                     </div>
                 </div>

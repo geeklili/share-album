@@ -6,6 +6,7 @@ from .resource.page import GetIndex, GetRecycleBin, GetDetail, GetAllUpload, Get
 from .resource.file import Robots, Favicon, Picture
 from .resource.recycle import DeleteRecyclePicture, DeleteAllRecyclePicture, Recover
 from .resource.index import DeletePicture, Revolve
+from .resource.keep import CopyImage, DeleteKeep
 
 bp = Blueprint('api', __name__, url_prefix='')
 api = Api(bp, catch_all_404s=True)
@@ -34,4 +35,7 @@ api.add_resource(Recover, '/api/add', '/add')
 api.add_resource(DeleteAllRecyclePicture, '/api/clear_all', '/clear_all')
 api.add_resource(DeleteRecyclePicture, '/api/delete_recycle', '/delete_recycle')
 
+# 保有图片恢复到主页
+api.add_resource(CopyImage, '/api/copy', '/copy')
+api.add_resource(DeleteKeep, '/api/delete_keep', '/delete_keep')
 
