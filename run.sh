@@ -11,10 +11,9 @@ daemon_stop(){
 	arr=(`echo ${pid} | tr ',' ' '`)
 	for((i=0;i<=2;i++));
   do
-  	echo ${arr[i]}
     kill -9 ${arr[i]}
-    echo "Server killed."
   done
+  echo "Server killed."
 
 }
 
