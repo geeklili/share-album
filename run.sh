@@ -9,7 +9,7 @@ daemon_start(){
 daemon_stop(){
 	pid=`ps -ef | grep 'python3 run.py' | awk 'BEGIN{ ORS="," }{ print $2 }'`
 	arr=(`echo ${pid} | tr ',' ' '`)
-	for((i=0;i<=2;i++));
+	for((i=0;i<=1;i++));
     do
       kill -9 ${arr[i]}
     done

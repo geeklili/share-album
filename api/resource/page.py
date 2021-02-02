@@ -42,7 +42,7 @@ class GetDetail(Resource):
     """详情页
     """
     def get(self):
-        pic_name = request.files.get("name")
+        pic_name = request.args.get("name")
         context = dict()
         context['detail_name'] = pic_name
         return make_response(render_template('detail.html', context=context))

@@ -124,21 +124,21 @@
 
             <div class="row" id="father_div">
                 {% for i in context.li %}
-                <a href="/detail?name={{i}}" class="detail_link">
-                <div class="col-md-4" id="{{i}}">
-                    <div class="card mb-4 shadow-sm">
-                        <img class="card-img-top" id="img{{i}}" src="/pic?name={{ i }}&file=images">
-                        <div class="card-body" style="height:30px;padding-top: 2px;">
-                            <!--                            <div class="card-text">-->
-                            <a href="javascript:delete_pic('{{i}}')" style="float: left;color:#FFDAB9;"
-                               class="deletelink">-</a>
-                            <!--                                <a href="/delete?name={{ i }}" style="float: left;color:#FFDAB9;" class="deletelink">-</a>-->
-                            <!--                            <a href="/revolve?name={{ i }}"  style="float: right;color:#FFDAB9;"-->
-                            <a href="javascript:revolve_pic('{{i}}')" style="float: right;color:#FFDAB9;"
-                               class="revolvelink">↶</a>
+                    <a href="/detail?name={{i}}" class="detail_link">
+                    <div class="col-md-4" id="{{i}}">
+                        <div class="card mb-4 shadow-sm">
+                            <img class="card-img-top" id="img{{i}}" src="/pic?name={{ i }}&file=images">
+                            <div class="card-body" style="height:30px;padding-top: 2px;">
+                                <!--                            <div class="card-text">-->
+                                <a href="javascript:delete_pic('{{i}}')" style="float: left;color:#FFDAB9;"
+                                   class="deletelink">-</a>
+                                <!--                                <a href="/delete?name={{ i }}" style="float: left;color:#FFDAB9;" class="deletelink">-</a>-->
+                                <!--                            <a href="/revolve?name={{ i }}"  style="float: right;color:#FFDAB9;"-->
+                                <a href="javascript:revolve_pic('{{i}}')" style="float: right;color:#FFDAB9;"
+                                   class="revolvelink">↶</a>
+                            </div>
                         </div>
-                    </div>
-                </div></a>
+                    </div></a>
                 {% endfor %}
             </div>
         </div>
