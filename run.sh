@@ -3,16 +3,16 @@
 
 daemon_start(){
 	nohup python3 run.py &
-	echo"Server started."
+	echo "Server started."
 }
 
 daemon_stop(){
 	pid=`ps -ef | grep 'python3 run.py' | awk 'BEGIN{ ORS="," }{ print $2 }'`
 	arr=(`echo ${pid} | tr ',' ' '`)
 	for((i=0;i<=2;i++));
-  do
-    kill -9 ${arr[i]}
-  done
+    do
+      kill -9 ${arr[i]}
+    done
   echo "Server killed."
 
 }
@@ -29,7 +29,7 @@ case "$1" in
 		daemon_start
 		;;
 	*)
-		echo"Usage: ./run.sh {start|stop|restart}"
+		echo "Usage: ./run.sh {start|stop|restart}"
 		exit 1
 esac
 exit 0
