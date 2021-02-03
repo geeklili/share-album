@@ -52,8 +52,16 @@ python3 run.py
 ```
 
 运行方法二[此方法用于后台运行，根据项目目录下，nohup.out文件查看log信息]：
+
+启动服务
 ```
 bash run.sh  --start
+```
+关闭服务
+```
 bash run.sh  --stop
+```
+重启服务
+```
 bash run.sh  --restart
 ```
