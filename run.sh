@@ -2,7 +2,7 @@
 . venv/bin/activate
 
 daemon_start(){
-	nohup python3 run.py &
+	nohup python3 run.py >> ./log/share-album.log &
 	echo "Server started."
 }
 
